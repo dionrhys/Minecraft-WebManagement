@@ -1,0 +1,4 @@
+name: MinecraftWebAPI
+main: dion.fyp.webapi.minecraft.WebApiPlugin
+version: 0.0.1
+commands:
