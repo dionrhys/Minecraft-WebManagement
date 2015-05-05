@@ -2,6 +2,7 @@ package dion.fyp.webapi.minecraft;
 
 import dion.fyp.webapi.minecraft.resources.PlayersResource;
 import com.sun.net.httpserver.HttpServer;
+import dion.fyp.webapi.minecraft.resources.ServerResource;
 import java.net.URI;
 import java.util.logging.Logger;
 import javax.ws.rs.core.UriBuilder;
@@ -25,7 +26,7 @@ public class WebApiPlugin extends JavaPlugin {
         log = getLogger();
         
         URI baseUri = UriBuilder.fromUri("http://localhost/").port(9998).build();
-        ResourceConfig config = new ResourceConfig(PlayersResource.class, JacksonFeature.class);
+        ResourceConfig config = new ResourceConfig(PlayersResource.class, ServerResource.class, JacksonFeature.class);
         httpServer = JdkHttpServerFactory.createHttpServer(baseUri, config);
         
         // Create an in-memory log appender and hook it into the root logger
