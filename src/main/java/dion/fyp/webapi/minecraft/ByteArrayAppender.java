@@ -12,6 +12,8 @@ import org.apache.logging.log4j.core.appender.OutputStreamManager;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.layout.PatternLayout;
+import org.apache.logging.log4j.core.pattern.RegexReplacement;
+import org.apache.logging.log4j.core.pattern.RegexReplacementConverter;
 
 /**
  * Modified version of the example StringAppender in Andrew Flower's blog post.
@@ -32,7 +34,8 @@ public class ByteArrayAppender extends AbstractOutputStreamAppender {
 
     public static ByteArrayAppender createStringAppender() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PatternLayout layout = PatternLayout.createLayout("[%d{HH:mm:ss} %level]: %msg%n", configuration, null, null, null);
+        RegexReplacement regexReplacement = RegexReplacement.createRegexReplacement("\\x1B\\[([0-9]{1,2}(;[0-9]{1,2})*)?[m|K]", ""); // Strip out terminal colour codes
+        PatternLayout layout = PatternLayout.createLayout("[%d{HH:mm:ss} %level]: %msg%n", configuration, regexReplacement, null, null);
 
         return new ByteArrayAppender(
                 "ByteArrayAppender",
